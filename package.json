@@ -1,9 +1,10 @@
 {
   "name": "iXiaer",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "夏尔猫舍",
   "scripts": {
+    "dev": "webpack-dev-server --open --hot",
+    "build": "webpack --progress --hide-modules",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,11 +19,17 @@
   },
   "homepage": "https://github.com/kimseongrim/iXiaer#readme",
   "devDependencies": {
-    "@vue/cli": "^3.0.5",
     "@vue/devtools": "^4.1.5",
     "babel-plugin-import": "^1.9.1",
+    "css-loader": "^1.0.0",
+    "node-sass": "^4.9.3",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "url-loader": "^1.1.2",
+    "vue-style-loader": "^4.1.2",
     "webpack": "^4.20.2",
-    "webpack-cli": "^3.1.2"
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9"
   },
   "dependencies": {
     "electron": "^1.7.11",
