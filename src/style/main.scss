@@ -1,8 +1,5 @@
 @import "util.scss";
-$nav-color: #F90;
 
-nav {
-  $width: 100px;
-  width: $width;
-  color: $nav-color;
+#androidApp img {
+  border: 1px solid $img-border-color;
 }
