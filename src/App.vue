@@ -1,5 +1,5 @@
 <template>
-<div id="sayHi">
+<div id="app">
   <h1>
     Hi {{msg}}
   </h1>
@@ -9,18 +9,18 @@
 
 <script>
 export default {
-  name: 'sayHi',
+  name: 'App',
   data() {
     console.log('控制台点击SingleTemplate.vue查看源码');
     return {
-      msg: '金成林!'
+      msg: 'Hello App!'
     };
   }
 }
 </script>
 
 <style lang="scss" scoped>
-#sayHi {
+#app {
     font-family: "Avenir", Helvetica, Arial, sans-serif;
     h1 {
         color: red;

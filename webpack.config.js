@@ -5,9 +5,9 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 var config = {
   entry: ['babel-polyfill', './src/main.js'], // 项目的入口文件，webpack会从main.js开始，把所有依赖的js都加载打包
   output: {
-    path: path.resolve(__dirname, './dist'), // 项目的打包文件路径
-    publicPath: '/dist/', // 通过devServer访问路径
-    filename: 'build.js' // 打包后的文件名
+    path: path.resolve(__dirname, './build'), // 项目的打包文件路径
+    publicPath: '/dist/', // 通过devServer访问路径上的虚拟目录
+    filename: '[name].js' // 打包后的文件名
   },
   module: {
     rules: [{
@@ -49,11 +49,15 @@ var config = {
         exclude: /node_modules/
       },
       {
-        test: /\.(ttf|woff)$/,
-        loader: "url-loader"
+        test: /\.(png|jpg|gif|svg)$/,
+        loader: "url-loader",
+        options: {
+          limit: '8192', //文件大小大于limit 8Kb，url-loader会调用file-loader进行处理
+          name: '[name].[ext]?[hash]'
+        }
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
+        test: /\.(ttf|woff)$/,
         loader: 'file-loader',
         options: {
           name: '[name].[ext]?[hash]'
@@ -93,7 +97,7 @@ var config = {
 
 module.exports = (env, argv) => {
   if (argv.mode === 'development') {
-    config.devtool = '#source-map';
+    config.devtool = 'source-map';
   }
   if (argv.mode === 'production') {
     // ;

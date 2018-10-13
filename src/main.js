@@ -1,8 +1,8 @@
 import Vue from 'vue';
-import say from './util';
-import getData from './util';
-import SingleTemplate from './components/SingleTemplate.vue';
-import './style/main.scss'
+import say from './assets/util';
+import getData from './assets/util';
+import './assets/main.scss'
+import App from './App.vue';
 
 // 按需引入iView
 import 'iview/dist/styles/iview.css';
@@ -41,10 +41,10 @@ var androidApp = new Vue({
 });
 
 // 单文件组件
-var iOSApp = new Vue({
-  el: '#iOSApp',
-  template: '<SingleTemplate/>',
+new Vue({
+  el: '#app',
   components: {
-    SingleTemplate
-  }
+    App
+  },
+  template: '<App/>'
 })
