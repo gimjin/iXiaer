@@ -20,6 +20,7 @@
   "homepage": "https://github.com/kimseongrim/iXiaer#readme",
   "devDependencies": {
     "@vue/devtools": "^4.1.5",
+    "axios": "^0.18.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-plugin-import": "^1.9.1",
