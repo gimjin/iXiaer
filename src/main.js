@@ -1,18 +1,19 @@
-import Vue from 'vue';
-import App from './App.vue';
+import Vue from 'vue'
+import App from './App.vue'
 
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
-import 'iview/dist/styles/iview.css';
+import i18n from './i18n/i18n.js'
+
+import 'iview/dist/styles/iview.css'
 import {
   Button,
   Row,
   Col,
   Icon,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem
+  Select,
+  Option
 } from 'iview';
 
 // 全局注册组件，必须在根 Vue 实例 (通过 new Vue) 创建之前发生引入。
@@ -20,9 +21,8 @@ Vue.component('i-button', Button);
 Vue.component('i-row', Row);
 Vue.component('i-col', Col);
 Vue.component('i-icon', Icon);
-Vue.component('i-dropdown', Dropdown);
-Vue.component('i-dropdown-menu', DropdownMenu);
-Vue.component('i-dropdown-item', DropdownItem);
+Vue.component('i-select', Select);
+Vue.component('i-option', Option);
 
 // 全局数据集，可响应式修改bbbbbbbbbbbbbbbbbbbb
 const store = new Vuex.Store({
@@ -30,13 +30,12 @@ const store = new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   // 类似变量
   state: {
-    describe: 'My father and mother are very good to me.'
+    describe: i18n.t("message.sison_describe")
   },
   // 修改state的唯一的入口
   mutations: {
     setDescribe(state, desc) {
       state.describe = desc
-      console.log(state.describe)
     },
   },
   // getter类似computed，是计算state的值
@@ -53,5 +52,7 @@ new Vue({
   components: {
     App
   },
-  store
+  // 类似store绑定，可以在所有子组件export default{}中用 this.$store.调用
+  store,
+  i18n
 })

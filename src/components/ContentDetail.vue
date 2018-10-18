@@ -1,11 +1,11 @@
 <template>
 <div id="content-detail">
   <!-- 动态组件 -->
-  <component :is="'Say' + name"></component>
+  <component :is="say"></component>
   <!-- 具名插槽 name="info" -->
   <slot name="info"></slot>
-  <!-- .sync来修改prop btnText -->
-  <i-button @click="changeCat(name)">{{btnText}}</i-button>
+  <!-- .sync来修改prop cat -->
+  <i-button @click="nextCat()">Next</i-button>
 </div>
 </template>
 
@@ -13,7 +13,7 @@
 // 简单组件无需创建.vue文件，直接定义后在components中声明
 const SaySison = (
   'say-sison', {
-    template: '<div>Hi I am Sison</div>',
+    template: '<div>{{ $t("message.hi") }} {{ $t("message.sison") }}</div>',
     // props: [],
     // methods: {
     //   myMethods: function(args) {
@@ -28,16 +28,21 @@ const SaySison = (
   }
 )
 const SayLarva = {
-  template: '<div>Hi I am Larva</div>',
+  template: '<div>{{ $t("message.hi") }} {{ $t("message.larva") }}</div>',
 }
 
 export default {
   name: 'ContentDetail',
   // https://cn.vuejs.org/v2/guide/components-props.html#Prop-验证
-  props: ['btnText'],
+  props: ['nowCat'],
   data() {
     return {
       name: 'Sison'
+    }
+  },
+  computed: {
+    say: function(){
+      return 'Say' + this.nowCat
     }
   },
   components: {
@@ -45,17 +50,15 @@ export default {
     SayLarva
   },
   methods: {
-    changeCat: function(name) {
-      if (name == 'Sison') {
-        this.name = 'Larva'
-        this.$emit('update:btnText', name) // 更新按钮文字
-        this.$emit('changeCat', this.name) // 通知切换背景图片
-        this.$store.commit('setDescribe', 'I recently pretty and looks like a huski.') // Vuex.store全局数据更新来响应式更新界面
+    nextCat: function() {
+      if (this.nowCat == 'Sison') {
+        this.$emit('update:nowCat', 'Larva') // 用.sync更新父组件的name属性
+        this.$emit('changeCat', 'Larva') // 触发副组件中@changeCat自定义事件
+        this.$store.commit('setDescribe', this.$i18n.t("message.larva_describe")) // Vuex.store全局数据更新来响应式更新界面
       } else {
-        this.name = 'Sison'
-        this.$emit('update:btnText', name)
-        this.$emit('changeCat', this.name)
-        this.$store.commit('setDescribe', 'My father and mother are very good to me.')
+        this.$emit('update:nowCat', 'Sison')
+        this.$emit('changeCat', 'Sison')
+        this.$store.commit('setDescribe', this.$i18n.t("message.sison_describe"))
       }
     }
   }

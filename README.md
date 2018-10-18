@@ -10,6 +10,9 @@
 cross-env 本地安装
 axios 本地安装
 
+vue-i18n
+vuex-i18n 这两个都安装了 可是区别在哪里？ 目前无法国际化vuex.store中的内容
+
 babel-loader@7 本地安装
 babel-core 本地安装
 babel-loader 本地安装

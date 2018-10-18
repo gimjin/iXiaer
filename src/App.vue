@@ -4,16 +4,19 @@
     <div class="app-box-front">
       <i-row type="flex" justify="space-between">
         <i-col :xs="24" :sm="4">
-          <i-dropdown trigger="click">
+          <i-select v-model="lang" @on-change="translate(lang)" style="width:200px">
+            <i-option v-for="item in langList" :value="item.value" :key="item.value">{{item.label}}</i-option>
+          </i-select>
+          <!-- <i-dropdown trigger="click">
             <i-button type="primary">
               选择语言
               <i-icon type="ios-arrow-down"></i-icon>
             </i-button>
             <i-dropdown-menu slot="list">
-              <i-dropdown-item>中文</i-dropdown-item>
-              <i-dropdown-item>English</i-dropdown-item>
+              <i-dropdown-item @click="translate('zh_CN')">中文</i-dropdown-item>
+              <i-dropdown-item @click="translate('en')">English</i-dropdown-item>
             </i-dropdown-menu>
-          </i-dropdown>
+          </i-dropdown> -->
         </i-col>
         <i-col :xs="0" :sm="4">
           <display-weather></display-weather>
@@ -22,7 +25,7 @@
       <i-row>
         <i-col span="24">
           <transition name="fade" mode="out-in">
-            <content-detail :btnText.sync="name" @changeCat='changeRouter'>
+            <content-detail :nowCat.sync="name" @changeCat='changeRouter'>
               <!-- 下面div中增加 v-once 只渲染元素和组件一次{{showDescribe}}不会被更新，静态内容可以用v-once性能优化 -->
               <div slot="info">{{showDescribe}}</div>
             </content-detail>
@@ -45,23 +48,22 @@
 
 <script>
 import Vue from 'vue';
-import router from './router'
+import router from './router' // 指向目录默认读取index.js
 // 注册组件
 import DisplayWeather from './components/DisplayWeather.vue'
 
 // 异步组件
 // https://stackoverflow.com/questions/46602935/vue-async-components-are-loading-without-delay-regardless-of-the-the-delay-par
-const cd =
-  import('./components/ContentDetail.vue')
 const ContentDetail = () => ({
   component: new Promise((resolve) => {
     setTimeout(() => {
-      resolve(cd)
+      resolve(
+        import('./components/ContentDetail.vue'))
     }, 1500)
   }),
   // {}快速注册组件
   loading: Vue.component('loading-component', {
-    template: '<span>Welcome to iXiaer</span>'
+    template: '<span>{{ $t("message.welcom") }}</span>'
   }),
   error: Vue.component('error-component', {
     template: '<span>Error</span>'
@@ -73,6 +75,17 @@ export default {
   name: 'App',
   data() {
     return {
+      langList: [
+        {
+          value: 'en_US',
+          label: 'English'
+        },
+        {
+          value: 'zh_CN',
+          label: '中文'
+        },
+      ],
+      lang: '',
       name: 'Sison'
     }
   },
@@ -81,19 +94,22 @@ export default {
       return this.$store.getters.getDescribe
     }
   },
-  router: router,
   // 局部注册组件，引入.vue文件
   components: {
     ContentDetail,
     DisplayWeather
   },
   methods: {
+    translate: function(lang) {
+      lang == 'en_US' ? this.$i18n.locale = 'en_US' : this.$i18n.locale = 'zh_CN'
+    },
     changeRouter: function(name) {
-      this.$router.push({
+      router.push({
         path: name
       })
     }
-  }
+  },
+  router
 }
 </script>
 
