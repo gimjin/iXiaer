@@ -1,61 +1,57 @@
 import Vue from 'vue';
-import say from './assets/util';
-import getData from './assets/util';
-import './assets/main.scss'
 import App from './App.vue';
-import router from './router'
 
-// 按需引入iView
+import Vuex from 'vuex'
+Vue.use(Vuex)
+
 import 'iview/dist/styles/iview.css';
 import {
   Button,
-  Input
+  Row,
+  Col,
+  Icon,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem
 } from 'iview';
-Vue.component('i-input', Input);
-Vue.component('i-button', Button);
 
-// 自定义组件
-Vue.component('i-logo', {
-  props: {
-    imgWidth: String,
-    imgHeight: {
-      type: String,
-      default: '300'
-    }
-  }, //html 属性值
-  template: '<img :width="imgWidth" :height="imgHeight" :src="url" />',
-  data() {
-    return {
-      url: require('./assets/logo.png')
+// 全局注册组件，必须在根 Vue 实例 (通过 new Vue) 创建之前发生引入。
+Vue.component('i-button', Button);
+Vue.component('i-row', Row);
+Vue.component('i-col', Col);
+Vue.component('i-icon', Icon);
+Vue.component('i-dropdown', Dropdown);
+Vue.component('i-dropdown-menu', DropdownMenu);
+Vue.component('i-dropdown-item', DropdownItem);
+
+// 全局数据集，可响应式修改bbbbbbbbbbbbbbbbbbbb
+const store = new Vuex.Store({
+  // 不要在发布环境下启用严格模式！**严格模式会深度监测状态树来检测不合规的状态变更——请确保在发布环境下关闭严格模式，以避免性能损失。
+  strict: process.env.NODE_ENV !== 'production',
+  // 类似变量
+  state: {
+    describe: 'My father and mother are very good to me.'
+  },
+  // 修改state的唯一的入口
+  mutations: {
+    setDescribe(state, desc) {
+      state.describe = desc
+      console.log(state.describe)
+    },
+  },
+  // getter类似computed，是计算state的值
+  getters: {
+    getDescribe: state => {
+      return state.describe
     }
   }
 })
 
-var androidApp = new Vue({
-  el: '#androidApp',
-  data() {
-    return {
-      message: say(),
-      dynamicNum: '100'
-    }
-  },
-  methods: {
-    async fetchData() {
-      const data = await getData();
-      this.message = data;
-    }
-  },
-  created() {
-    this.fetchData();
-  }
-});
-
-// 单文件组件
 new Vue({
   el: '#app',
-  router: router,
+  template: '<App/>',
   components: {
     App
   },
-  template: '<App/>'
+  store
 })

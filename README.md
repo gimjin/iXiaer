@@ -47,6 +47,9 @@ vue-template-compiler 本地安装
 
 
 ## 知识点
+
+mongoose？？？？？？？？数据库
+
 iView
   响应式Layout
   按需引入Component
@@ -60,21 +63,22 @@ Vue语法
 组件注册
   全局注册
   本地注册
+  router
 过度动画
   121212 图片切换
   1212121
 prop
   动态prop
   prop验证
+  .sync 用按钮例子
 自定义事件
   绑定原生事件.native
-  .sync 修饰符(2.3.0+)
   自定义组件的 v-model（2.2.0 新增）
-动态组件 ： pangpang & sison按钮
+动态组件 ： Hi I am Sison
 其他
   对低开销的静态组件使用 v-once
   i18n
-  插槽，组件的一块HTML模板，这块模板显示不显示、以及怎样显示由父组件来决定。 ： 我已被领养这句话上引用
+  插槽，组件的一块HTML模板，这块模板显示不显示、以及怎样显示由父组件来决定。 ： 我已被领养这句话上引用,不引入vue文件
   CSS作用域
 
   CommonJS

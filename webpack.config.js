@@ -21,7 +21,6 @@ var config = {
           {
             loader: 'css-loader'
           },
-
         ],
       },
       {
@@ -86,7 +85,17 @@ var config = {
   ],
   devServer: {
     historyApiFallback: true,
-    overlay: true
+    overlay: true,
+    // proxy axios跨域访问
+    // proxy: {
+    //   '/s6': {
+    //     target: 'https://free-api.heweather.com/',
+    //     changeOrigin: true,
+    //     pathRewrite: {
+    //       '^/s6': '/s6'
+    //     }
+    //   }
+    // }
   },
   resolve: {
     alias: {
