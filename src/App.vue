@@ -128,39 +128,6 @@ export default {
 </script>
 
 <!-- scoped 为组件样式设置作用域 https://cn.vuejs.org/v2/style-guide/ -->
-<style scoped>
-#app .app-box {
-  display: block;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-}
-
-#app .app-box .app-box-front {
-  display: block;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 101;
-  padding: 20px;
-}
-
-#app .app-box .app-box-back {
-  display: block;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 100;
-}
-
-.welcom {
-  font-size: 4em;
-  color: white;
-}
+<style lang="scss" scoped>
+@import "./assets/main.scss"
 </style>
