@@ -1,11 +1,11 @@
 <template>
 <div id="content-detail">
-  <!-- 动态组件 -->
+  <!-- 用:is 动态切换组件 -->
   <component :is="say"></component>
-  <!-- 具名插槽 name="info" -->
-  <slot name="info"></slot>
+  <!-- 具名插槽 slot="info"的嵌套内容会在此显示 -->
+  <slot name="info"></slot><br/>
   <!-- .sync来修改prop cat -->
-  <i-button @click="nextCat()">{{ $t('message.next') }}</i-button>
+  <i-button @click="nextCat()" size="large" type="warning">{{ $t('message.next') }}</i-button>
 </div>
 </template>
 
@@ -13,7 +13,7 @@
 // 简单组件无需创建.vue文件，直接定义后在components中声明
 const SaySison = (
   'say-sison', {
-    template: '<div>{{ $t("message.hi") }} {{ $t("message.sison") }}</div>',
+    template: '<div class="hi">{{ $t("message.hi") }} {{ $t("message.sison") }}</div>',
     // props: [],
     // methods: {
     //   myMethods: function(args) {
@@ -28,7 +28,7 @@ const SaySison = (
   }
 )
 const SayLarva = {
-  template: '<div>{{ $t("message.hi") }} {{ $t("message.larva") }}</div>',
+  template: '<div class="hi">{{ $t("message.hi") }} {{ $t("message.larva") }}</div>',
 }
 
 export default {
@@ -60,6 +60,17 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
-
+<!-- 通过sass代码编写css -->
+<style lang="scss" scoped>
+#content-detail {
+  margin-left: 2em;
+  .hi {
+    font-size: 5em;
+    color: white;
+  }
+  .desc {
+    font-size: 1.4em;
+    color: white;
+  }
+}
 </style>

@@ -33,11 +33,6 @@ var config = {
               'vue-style-loader',
               'css-loader',
               'sass-loader'
-            ],
-            'sass': [
-              'vue-style-loader',
-              'css-loader',
-              'sass-loader?indentedSyntax'
             ]
           }
         }
@@ -68,14 +63,6 @@ var config = {
           'vue-style-loader',
           'css-loader',
           'sass-loader'
-        ],
-      },
-      {
-        test: /\.sass$/,
-        use: [
-          'vue-style-loader',
-          'css-loader',
-          'sass-loader?indentedSyntax'
         ],
       }
     ]

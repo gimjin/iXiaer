@@ -1,6 +1,6 @@
 <template>
 <div id="display-weather">
-  <div>{{showTemp}}</div>
+  <div class="temp">{{showTemp}}</div>
 </div>
 </template>
 
@@ -23,7 +23,7 @@ export default {
   // 调用{{showTemp}}读取数据时执行
   computed: {
     showTemp: function() {
-      return this.$t('message.city') + ': ' + this.tmp_max + ' ℃'
+      return this.$t('message.weather') + ': ' + this.tmp_max + ' ℃'
     }
   },
   // https://cn.vuejs.org/v2/api/#mounted
@@ -48,6 +48,10 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
-
+<style scoped>
+#display-weather .temp {
+  font-size: 1.4em;
+  text-align: right;
+  color: white;
+}
 </style>
