@@ -27,7 +27,9 @@
           <transition name="fade" mode="out-in">
             <content-detail :nowCat.sync="name" @changeCat='changeRouter'>
               <!-- 下面div中增加 v-once 只渲染元素和组件一次{{showDescribe}}不会被更新，静态内容可以用v-once性能优化 -->
-              <div slot="info">{{showDescribe}}</div>
+              <div slot="info">
+                {{ $t(this.$store.getters.getDescribe) }}
+              </div>
             </content-detail>
           </transition>
         </i-col>
@@ -49,10 +51,10 @@
 <script>
 import Vue from 'vue';
 import router from './router' // 指向目录默认读取index.js
-// 注册组件
+// 同步导入组件
 import DisplayWeather from './components/DisplayWeather.vue'
 
-// 异步组件
+// 异步导入组件
 // https://stackoverflow.com/questions/46602935/vue-async-components-are-loading-without-delay-regardless-of-the-the-delay-par
 const ContentDetail = () => ({
   component: new Promise((resolve) => {
@@ -75,8 +77,7 @@ export default {
   name: 'App',
   data() {
     return {
-      langList: [
-        {
+      langList: [{
           value: 'en_US',
           label: 'English'
         },
@@ -85,29 +86,41 @@ export default {
           label: '中文'
         },
       ],
-      lang: '',
+      lang: this.$cookie.get('lang'),
       name: 'Sison'
     }
   },
-  computed: {
-    showDescribe: function() {
-      return this.$store.getters.getDescribe
-    }
-  },
-  // 局部注册组件，引入.vue文件
+  // 局部注册组件
   components: {
     ContentDetail,
     DisplayWeather
   },
   methods: {
+    // 切换语言
     translate: function(lang) {
-      lang == 'en_US' ? this.$i18n.locale = 'en_US' : this.$i18n.locale = 'zh_CN'
+      if (lang == 'en_US') {
+        this.$i18n.locale = 'en_US'
+        this.$cookie.set('lang', 'en_US', 365)
+      } else {
+        this.$i18n.locale = 'zh_CN'
+        this.$cookie.set('lang', 'zh_CN', 365)
+      }
     },
     changeRouter: function(name) {
       router.push({
-        path: name
+        path: this.name
       })
     }
+  },
+  // 组件创建时钩子函数/回调函数
+  mounted: function() {
+    this.$nextTick(function() {
+      // 初始化国际化
+      if (!this.$cookie.get('lang')) {
+        this.$cookie.set('lang', 'en_US', 365)
+      }
+      this.$i18n.locale = this.$cookie.get('lang')
+    })
   },
   router
 }

@@ -11,7 +11,7 @@ cross-env 本地安装
 axios 本地安装
 
 vue-i18n
-vuex-i18n 这两个都安装了 可是区别在哪里？ 目前无法国际化vuex.store中的内容
+vue-cookie
 
 babel-loader@7 本地安装
 babel-core 本地安装
@@ -63,6 +63,8 @@ Javascript规范
 Vue语法
   字面量语法 vs 动态语法 ：天气
   语法糖
+  <input v-bind:value="something"  v-on:input="something = $event.target.value">
+  //简写：<input :value="something"  @input="something = $event.target.value">
 组件注册
   全局注册
   本地注册
@@ -90,8 +92,4 @@ prop
 
   Nodejs的模块系统就采用CommonJS模式。CommonJS标准规定，一个单独的文件就是一个模块，模块内将需要对外暴露的变量放到exports对象里，可以是任意对象，函数，数组等，未放到exports对象里的都是私有的。用require方法加载模块，即读取模块文件获得exports对象。
 
-
-
-
-  <input v-bind:value="something"  v-on:input="something = $event.target.value">
-  //简写：<input :value="something"  @input="something = $event.target.value">
+最后你发现在Larva页面浏览器刷新时，图片还是Larva的照片但是文字已经变成Sison，所以实际项目当中应该把data数据绑定动态数据

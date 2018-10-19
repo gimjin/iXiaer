@@ -5,7 +5,7 @@
   <!-- 具名插槽 name="info" -->
   <slot name="info"></slot>
   <!-- .sync来修改prop cat -->
-  <i-button @click="nextCat()">Next</i-button>
+  <i-button @click="nextCat()">{{ $t('message.next') }}</i-button>
 </div>
 </template>
 
@@ -35,11 +35,6 @@ export default {
   name: 'ContentDetail',
   // https://cn.vuejs.org/v2/guide/components-props.html#Prop-验证
   props: ['nowCat'],
-  data() {
-    return {
-      name: 'Sison'
-    }
-  },
   computed: {
     say: function(){
       return 'Say' + this.nowCat
@@ -53,12 +48,12 @@ export default {
     nextCat: function() {
       if (this.nowCat == 'Sison') {
         this.$emit('update:nowCat', 'Larva') // 用.sync更新父组件的name属性
-        this.$emit('changeCat', 'Larva') // 触发副组件中@changeCat自定义事件
-        this.$store.commit('setDescribe', this.$i18n.t("message.larva_describe")) // Vuex.store全局数据更新来响应式更新界面
+        this.$emit('changeCat') // 触发副组件中@changeCat自定义事件
+        this.$store.commit('setDescribe', 'message.larva_describe') // Vuex.store全局数据响应式更新状态
       } else {
         this.$emit('update:nowCat', 'Sison')
-        this.$emit('changeCat', 'Sison')
-        this.$store.commit('setDescribe', this.$i18n.t("message.sison_describe"))
+        this.$emit('changeCat')
+        this.$store.commit('setDescribe', 'message.sison_describe')
       }
     }
   }
