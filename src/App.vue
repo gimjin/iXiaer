@@ -51,6 +51,8 @@ import router from './router' // 指向目录默认读取index.js
 // 同步导入组件
 import DisplayWeather from './components/DisplayWeather.vue'
 
+import { LoadingBar } from 'iView'
+
 // 异步导入组件
 // https://stackoverflow.com/questions/46602935/vue-async-components-are-loading-without-delay-regardless-of-the-the-delay-par
 const ContentDetail = () => ({

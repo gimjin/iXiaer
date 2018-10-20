@@ -19,14 +19,14 @@ import {
   Icon,
   Select,
   Option
-} from 'iview';
+} from 'iview'
 // 全局注册组件，必须在根Vue实例 (通过 new Vue) 创建之前发生引入。
-Vue.component('i-button', Button);
-Vue.component('i-row', Row);
-Vue.component('i-col', Col);
-Vue.component('i-icon', Icon);
-Vue.component('i-select', Select);
-Vue.component('i-option', Option);
+Vue.component('i-button', Button)
+Vue.component('i-row', Row)
+Vue.component('i-col', Col)
+Vue.component('i-icon', Icon)
+Vue.component('i-select', Select)
+Vue.component('i-option', Option)
 
 // 全局数据集，可响应式修改界面已绑定数据
 const store = new Vuex.Store({

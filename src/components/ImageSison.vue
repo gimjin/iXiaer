@@ -1,8 +1,12 @@
 <template>
-<div id="image-sison" :style="urlStyle"></div>
+<div id="image-sison" :style="urlStyle">
+  <img :src="url" @load="loaded" width="0" height="0" />
+</div>
 </template>
 
 <script>
+import { LoadingBar } from 'iView'
+
 export default {
   name: 'ImageSison',
   data() {
@@ -15,7 +19,17 @@ export default {
     urlStyle: function(){
       return 'background:url('  + this.url +  ') center'
     }
-  }
+  },
+  methods: {
+    loaded: function() {
+      // 结束进度条
+      LoadingBar.finish()
+    }
+  },
+  mounted: function() {
+    // 启动进度条
+    LoadingBar.start()
+  },
 }
 
 </script>

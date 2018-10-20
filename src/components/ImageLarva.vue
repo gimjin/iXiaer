@@ -1,8 +1,12 @@
 <template>
-<div id="image-larva" :style="urlStyle"></div>
+<div id="image-larva" :style="urlStyle">
+  <img :src="url" @load="loaded" width="0" height="0" />
+</div>
 </template>
 
 <script>
+import { LoadingBar } from 'iView'
+
 export default {
   name: 'ImageLarva',
   data() {
@@ -15,11 +19,16 @@ export default {
       return 'background:url(' + this.url + ') center'
     }
   },
+  methods: {
+    loaded: function() {
+      // 结束进度条
+      LoadingBar.finish()
+    }
+  },
   mounted: function() {
-    // this.nextTick(function() {
-      alert('数据已经更新')
-    // })
-  }
+    // 启动进度条
+    LoadingBar.start()
+  },
 }
 </script>
 
