@@ -7,13 +7,18 @@ export default {
   name: 'ImageLarva',
   data() {
     return {
-      url: require('../assets/larva.png')
+      url: require('../assets/larva.jpg')
     }
   },
   computed: {
     urlStyle: function() {
-      return 'background:url('  + this.url +  ') center'
+      return 'background:url(' + this.url + ') center'
     }
+  },
+  mounted: function() {
+    // this.nextTick(function() {
+      alert('数据已经更新')
+    // })
   }
 }
 </script>
