@@ -1,6 +1,6 @@
 <template>
 <div id="app">
-  <v-touch v-on:swipeleft="swipeChangeRouter" v-on:swiperight="swipeChangeRouter">
+  <v-touch v-on:swipeleft="swipeChangeRouter" v-on:swiperight="swipeChangeRouter" v-bind:swipe-options="{ direction:'horizontal' }">
     <div class="app-box">
       <div class="app-box-front">
         <i-row type="flex">
@@ -55,7 +55,9 @@ import router from './router' // 指向目录默认读取index.js
 import DisplayWeather from './components/DisplayWeather.vue'
 
 import VueTouch from 'vue-touch'
-Vue.use(VueTouch, {name: 'v-touch'})
+Vue.use(VueTouch, {
+  name: 'v-touch'
+})
 
 // 异步导入组件
 // https://stackoverflow.com/questions/46602935/vue-async-components-are-loading-without-delay-regardless-of-the-the-delay-par
