@@ -2,7 +2,8 @@
 <div id="content-detail">
   <!-- 用:is 动态切换组件 -->
   <component :is="say"></component>
-  <!-- 具名插槽 slot="info"的嵌套内容会在此显示 -->
+  <!-- 具名插槽 父组件App.vue中使用组件时嵌入内容<content-detail><div slot="info">内容</div></content-detail> -->
+  <!-- <slot name="info">就是内容显示的位置 -->
   <slot name="info"></slot><br/>
   <!-- .sync来修改prop cat -->
   <i-button @click="nextCat()" size="large" type="warning">{{ $t('message.next') }}</i-button>
@@ -35,6 +36,7 @@ export default {
   name: 'ContentDetail',
   // https://cn.vuejs.org/v2/guide/components-props.html#Prop-验证
   props: ['nowCat'],
+  // 只要data或者prop更新自动重新计算
   computed: {
     say: function(){
       return 'Say' + this.nowCat

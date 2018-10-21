@@ -34,6 +34,7 @@ export default {
 
 </script>
 
+<!-- scoped是作用域标签，里面所有的声明只在此组件生效 -->
 <style scoped>
 #image-sison {
   position: absolute;

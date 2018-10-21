@@ -12,8 +12,8 @@ export default new VueI18n({
         hi: 'Hi, I am',
         sison: 'Sison',
         larva: 'Larva',
-        sison_describe: 'I recently pretty and looks like a huski.',
-        larva_describe: 'My eyes are beautiful, it is golden.',
+        sison_describe: 'Use your mouse or finger to SWIPE, I will become Larva.',
+        larva_describe: 'CLICK button, change back to Sisson.',
         next: 'Next Cat',
         weather: 'Weather'
       }
@@ -25,8 +25,8 @@ export default new VueI18n({
         hi: '嗨，我叫',
         sison: '西森',
         larva: '拉哇',
-        sison_describe: '我最近很漂亮，看起来像个哈士奇。',
-        larva_describe: '我的眼睛很漂亮，是金色的。',
+        sison_describe: '用鼠标或者手指滑动，我会变身成拉哇。',
+        larva_describe: '点击下一只猫按钮，变回西森。',
         next: '下一只猫',
         weather: '天气'
       }
