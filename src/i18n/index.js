@@ -12,8 +12,8 @@ export default new VueI18n({
         hi: 'Hi, I am',
         sison: 'Sison',
         larva: 'Larva',
-        sison_describe: 'Use your mouse or finger to SWIPE, I will become Larva.',
-        larva_describe: 'CLICK button, change back to Sisson.',
+        sison_describe: 'Swipe left or right, I will become Larva.',
+        larva_describe: 'Click button, change back to Sisson.',
         next: 'Next Cat',
         weather: 'Weather'
       }
@@ -25,7 +25,7 @@ export default new VueI18n({
         hi: '嗨，我叫',
         sison: '西森',
         larva: '拉哇',
-        sison_describe: '用鼠标或者手指滑动，我会变身成拉哇。',
+        sison_describe: '往左或右滑动，我将会变成拉哇。',
         larva_describe: '点击下一只猫按钮，变回西森。',
         next: '下一只猫',
         weather: '天气'
