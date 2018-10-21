@@ -91,7 +91,7 @@ export default {
           label: '中文'
         },
       ],
-      lang: this.$cookie.get('lang'),
+      lang: '',
       name: 'Sison'
     }
   },
@@ -132,13 +132,13 @@ export default {
   },
   // 组件创建时钩子函数/回调函数
   mounted: function() {
-    this.$nextTick(function() {
-      // 初始化国际化
+      // 保存国际化状态
       if (!this.$cookie.get('lang')) {
         this.$cookie.set('lang', 'en_US', 365)
       }
+      // 初始化国际化
+      this.lang = this.$cookie.get('lang')
       this.$i18n.locale = this.$cookie.get('lang')
-    })
   },
   // 绑定router，在所有子组件中可以使用this.$router访问
   router
