@@ -5,7 +5,7 @@
       <i-row type="flex">
         <!-- https://www.iviewui.com/components/grid 响应式页面配置方法-->
         <!-- Safari：开发 > 进入响应式设计模式，看手机上效果时天气预报信息会消失  -->
-        <i-col :xs="24" :sm="12" style="height: 12em">
+        <i-col :xs="{span: 24}" :sm="{span: 12}" class-name="gap">
           <!-- https://cn.vuejs.org/v2/api/#v-on @on-change等同于v-on:change是一种语法糖 -->
           <i-select v-model="lang" @on-change="translate(lang)" style="width:150px">
             <i-option v-for="item in langList" :value="item.value" :key="item.value">{{item.label}}</i-option>
@@ -64,7 +64,7 @@ const ContentDetail = () => ({
   }),
   // {}快速注册组件
   loading: Vue.component('loading-component', {
-    template: '<span class="welcom">{{ $t("message.welcom") }}</span>'
+    template: '<div class="welcom">{{ $t("message.welcom") }}</div>'
   }),
   error: Vue.component('error-component', {
     template: '<span>Error</span>'
