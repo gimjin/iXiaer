@@ -5,7 +5,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 var config = {
   entry: ['babel-polyfill', './src/main.js'], // 项目的入口文件，webpack会从main.js开始，把所有依赖的js都加载打包
   output: {
-    path: path.resolve(__dirname, './build'), // 项目的打包文件路径
+    path: path.resolve(__dirname, './dist'), // 项目的打包文件路径
     publicPath: '/dist/', // 通过devServer访问路径上的虚拟目录
     filename: '[name].js' // 打包后的文件名
   },
