@@ -147,5 +147,5 @@ export default {
 
 <!-- scoped 为组件样式设置作用域 https://cn.vuejs.org/v2/style-guide/ -->
 <style lang="scss" scoped>
-@import "./assets/main.scss"
+@import "./assets/main.scss";
 </style>
