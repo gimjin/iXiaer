@@ -148,4 +148,11 @@ export default {
 <!-- scoped 为组件样式设置作用域 https://cn.vuejs.org/v2/style-guide/ -->
 <style lang="scss" scoped>
 @import "./assets/main.scss";
+// 引入node_modules时需要用到 ～ 符号
+@import '~compass-mixins/lib/compass/_css3.scss';
+
+.app-box {
+  @include border-radius(5px);
+}
+
 </style>
