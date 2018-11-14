@@ -1,8 +1,13 @@
-var path = require('path');
-var webpack = require('webpack');
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+var path = require('path')
+var webpack = require('webpack')
+const devMode = process.env.NODE_ENV !== 'production'
 
-var config = {
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+
+module.exports = {
   entry: ['babel-polyfill', './src/main.js'], // 项目的入口文件，webpack会从main.js开始，把所有依赖的js都加载打包
   output: {
     path: path.resolve(__dirname, './dist'), // 项目的打包文件路径
@@ -11,31 +16,26 @@ var config = {
   },
   module: {
     rules: [{
+        // vue-loader必须和VueLoaderPlugin()一起使用
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      },
+      {
         test: /\.css$/,
-        use: [{
-            loader: 'vue-style-loader'
-          },
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader'
-          },
+        use: [
+          devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader'
         ],
       },
       {
-        // vue-loader必须和VueLoaderPlugin()一起使用
-        test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: {
-            'scss': [
-              'vue-style-loader',
-              'css-loader',
-              'sass-loader'
-            ]
-          }
-        }
+        test: /\.scss$/,
+        use: [
+          devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+          'sass-loader'
+        ],
       },
       {
         test: /\.js$/,
@@ -46,58 +46,65 @@ var config = {
         test: /\.(png|jpg|gif|svg)$/,
         loader: "url-loader",
         options: {
+          outputPath: './images',
+          publicPath: './dist/images', // 如果有CDN可以修改此路径
           limit: '8192', //文件大小大于limit 8Kb，url-loader会调用file-loader进行处理
-          name: '[name].[ext]?[hash]'
+          name: '[name].[ext]?[hash:8]'
         }
       },
       {
         test: /\.(ttf|woff)$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[ext]?[hash]'
+          outputPath: './fonts',
+          publicPath: './dist/fonts', // 不写publicPath也能正常找到fonts目录
+          name: '[name].[ext]?[hash:8]'
         }
       },
-      {
-        test: /\.scss$/,
-        use: [
-          'vue-style-loader',
-          'css-loader',
-          'sass-loader'
-        ],
-      }
     ]
   },
-  plugins: [
-    new VueLoaderPlugin()
-  ],
-  devServer: {
-    historyApiFallback: true,
-    overlay: true,
-    // proxy axios跨域访问
-    // proxy: {
-    //   '/s6': {
-    //     target: 'https://free-api.heweather.com/',
-    //     changeOrigin: true,
-    //     pathRewrite: {
-    //       '^/s6': '/s6'
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({}),
+      new OptimizeCSSAssetsPlugin({})
+    ],
+    // splitChunks: {
+    //   chunks: 'all',
+    //   minSize: 30000,
+    //   maxSize: 0,
+    //   minChunks: 1,
+    //   maxAsyncRequests: 5,
+    //   maxInitialRequests: 3,
+    //   automaticNameDelimiter: '~',
+    //   name: true,
+    //   cacheGroups: {
+    //     vendors: {
+    //       test: /[\\/]node_modules[\\/]/,
+    //       priority: -10
+    //     },
+    //     default: {
+    //       minChunks: 2,
+    //       priority: -20,
+    //       reuseExistingChunk: true
     //     }
     //   }
     // }
   },
+  plugins: [
+    new VueLoaderPlugin(),
+    new MiniCssExtractPlugin({
+      filename: devMode ? '[name].css' : '[name].[hash:8].css',
+      chunkFilename: devMode ? '[id].css' : '[id].[hash:8].css',
+    })
+  ],
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js'
     }
-  }
-};
-
-module.exports = (env, argv) => {
-  if (argv.mode === 'development') {
-    config.devtool = 'source-map';
-  }
-  if (argv.mode === 'production') {
-    // ;
-  }
-
-  return config;
+  },
+  devServer: {
+    historyApiFallback: true,
+    overlay: true
+  },
+  devtool: devMode ? 'source-map' : ''
 }

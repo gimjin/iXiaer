@@ -1,0 +1,5 @@
+# Browsers that we support
+# Config help => https://github.com/browserslist/browserslist#full-list
+
+defaults
+not ie <= 10

@@ -3,6 +3,15 @@
   <v-touch v-on:swipeleft="swipeChangeRouter" v-on:swiperight="swipeChangeRouter" v-bind:swipe-options="{ direction:'horizontal' }">
     <div class="app-box">
       <div class="app-box-front">
+        <div id="test">
+          <img src="/static/sprite/google-logo.png">
+        </div>
+        <section>
+          <div>1</div>
+          <div>2</div>
+          <div>3</div>
+          <div>4</div>
+        </section>
         <i-row type="flex">
           <!-- https://www.iviewui.com/components/grid 响应式页面配置方法-->
           <!-- Safari：开发 > 进入响应式设计模式，看手机上效果时天气预报信息会消失  -->
@@ -132,13 +141,13 @@ export default {
   },
   // 组件创建时钩子函数/回调函数
   mounted: function() {
-      // 保存国际化状态
-      if (!this.$cookie.get('lang')) {
-        this.$cookie.set('lang', 'en_US', 365)
-      }
-      // 初始化国际化
-      this.lang = this.$cookie.get('lang')
-      this.$i18n.locale = this.$cookie.get('lang')
+    // 保存国际化状态
+    if (!this.$cookie.get('lang')) {
+      this.$cookie.set('lang', 'en_US', 365)
+    }
+    // 初始化国际化
+    this.lang = this.$cookie.get('lang')
+    this.$i18n.locale = this.$cookie.get('lang')
   },
   // 绑定router，在所有子组件中可以使用this.$router访问
   router
@@ -148,11 +157,25 @@ export default {
 <!-- scoped 为组件样式设置作用域 https://cn.vuejs.org/v2/style-guide/ -->
 <style lang="scss" scoped>
 @import "./assets/main.scss";
-// 引入node_modules时需要用到 ～ 符号
-@import '~compass-mixins/lib/compass/_css3.scss';
 
-.app-box {
-  @include border-radius(5px);
+// 引入node_modules时需要用到 ～ 符号
+@import '~retinajs/dist/_retina.scss';
+
+#test {
+    // @include retina('/static/sprite/google-logo.png', 3, cover, center center no-repeat);
+    transform: scale(0.5);
+    display: flex;
 }
 
+section {
+  lost-utility: clearfix;
+}
+
+section > div {
+  lost-column: 1/2;
+}
+
+// img {
+//     background: (require('./assets/google-logo.png'));
+// }
 </style>
