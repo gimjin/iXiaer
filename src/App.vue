@@ -4,7 +4,7 @@
     <div class="app-box">
       <div class="app-box-front">
         <div id="test">
-          <img src="/static/sprite/google-logo.png">
+          <img src="./assets/google-logo.png">
         </div>
         <section>
           <div>1</div>
@@ -162,7 +162,7 @@ export default {
 @import '~retinajs/dist/_retina.scss';
 
 #test {
-    // @include retina('/static/sprite/google-logo.png', 3, cover, center center no-repeat);
+    @include retina('./assets/google-logo.png', 3, cover, center center no-repeat);
     transform: scale(0.5);
     display: flex;
 }
