@@ -3,7 +3,7 @@ var webpack = require('webpack')
 const devMode = process.env.NODE_ENV !== 'production'
 
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
@@ -14,6 +14,12 @@ module.exports = {
     publicPath: '/dist/', // 通过devServer访问路径上的虚拟目录
     filename: '[name].js' // 打包后的文件名
   },
+  plugins: [
+    new VueLoaderPlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[name].css'
+    })
+  ],
   module: {
     rules: [{
         // vue-loader必须和VueLoaderPlugin()一起使用
@@ -47,7 +53,7 @@ module.exports = {
         loader: "url-loader",
         options: {
           outputPath: './images',
-          publicPath: './dist/images', // 如果有CDN可以修改此路径
+          publicPath: '/dist/images/', // 如果有CDN可以修改此路径
           limit: '8192', //文件大小大于limit 8Kb，url-loader会调用file-loader进行处理
           name: '[name].[ext]?[hash:8]'
         }
@@ -57,7 +63,7 @@ module.exports = {
         loader: 'file-loader',
         options: {
           outputPath: './fonts',
-          publicPath: './dist/fonts', // 不写publicPath也能正常找到fonts目录
+          publicPath: '/dist/fonts/', // 不写publicPath也能正常找到fonts目录
           name: '[name].[ext]?[hash:8]'
         }
       },
@@ -68,35 +74,31 @@ module.exports = {
       new UglifyJsPlugin({}),
       new OptimizeCSSAssetsPlugin({})
     ],
-    // splitChunks: {
-    //   chunks: 'all',
-    //   minSize: 30000,
-    //   maxSize: 0,
-    //   minChunks: 1,
-    //   maxAsyncRequests: 5,
-    //   maxInitialRequests: 3,
-    //   automaticNameDelimiter: '~',
-    //   name: true,
-    //   cacheGroups: {
-    //     vendors: {
-    //       test: /[\\/]node_modules[\\/]/,
-    //       priority: -10
-    //     },
-    //     default: {
-    //       minChunks: 2,
-    //       priority: -20,
-    //       reuseExistingChunk: true
-    //     }
-    //   }
-    // }
+    splitChunks: {
+      chunks: 'all',
+      minSize: 30000,
+      maxSize: 0,
+      minChunks: 1,
+      maxAsyncRequests: 5,
+      maxInitialRequests: 3,
+      automaticNameDelimiter: '~',
+      name: true,
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
+    },
+    runtimeChunk: {
+      name: entrypoint => `runtime~${entrypoint.name}`
+    }
   },
-  plugins: [
-    new VueLoaderPlugin(),
-    new MiniCssExtractPlugin({
-      filename: devMode ? '[name].css' : '[name].[hash:8].css',
-      chunkFilename: devMode ? '[id].css' : '[id].[hash:8].css',
-    })
-  ],
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js'

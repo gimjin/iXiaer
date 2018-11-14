@@ -174,8 +174,4 @@ section {
 section > div {
   lost-column: 1/2;
 }
-
-// img {
-//     background: (require('./assets/google-logo.png'));
-// }
 </style>
