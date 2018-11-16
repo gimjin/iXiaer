@@ -1,13 +1,13 @@
 const path = require('path')
 
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const WebpackShellPlugin = require('webpack-shell-plugin')
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 // 判断开发模式或生产模式
 const devMode = process.env.NODE_ENV !== 'production'
@@ -21,70 +21,74 @@ module.exports = {
     // 通过devServer访问路径上的虚拟目录
     publicPath: '/',
     // 打包后的文件名
-    filename: devMode ? '[name].js?[hash:8]' : '[hash].js',
+    filename: devMode ? '[name].js?[hash:8]' : '[hash].js'
   },
   module: {
     rules: [{
-        // vue-loader必须和VueLoaderPlugin()一起使用
-        test: /\.vue$/,
-        loader: 'vue-loader'
-      },
-      {
-        test: /\.css$/,
-        use: [
-          // 类似vue-style-loader和style-loader，区别在于会生成单独的css文件，文件配置参考plugin配置
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          // 已配置 autoprefixer 自动添加-webkit -ms 等前缀兼容浏览器（浏览器列表设置.browserslistrc）
-          // 配置文件 postcss.config.js
-          'postcss-loader'
-        ],
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'postcss-loader',
-          'sass-loader'
-        ],
-      },
-      {
-        test: /\.js$/,
-        // 支持ES6或更新的JS语法，配置文件.babelrc
-        loader: 'babel-loader',
-        exclude: /node_modules/
-      },
-      {
-        test: /\.(png|jpg|gif)$/,
-        loader: "url-loader",
-        options: {
-          // 在dist目录中创建assets目录存放所有图片
-          outputPath: './images',
-          // 浏览器访问地址，如 http://localhost.com/assets/
-          publicPath: '/images/',
-          // limit 16Kb 会用base64图片减少http请求数量，所以要求UI设计师提供的多彩icon大小要小于16Kb
-          // 雪碧图只有在icon量巨大的项目使用，单彩icon用fontcustom方案
-          limit: '16384',
-          name: devMode ? '[name].[ext]?[hash:8]' : '[hash].[ext]'
-        }
-      },
-      {
-        test: /\.(ttf|woff|woff2|eot|svg)$/,
-        loader: 'file-loader',
-        options: {
-          outputPath: './fonts',
-          publicPath: '/fonts/',
-          name: devMode ? '[name].[ext]?[hash:8]' : '[hash].[ext]'
-        }
-      },
+      // vue-loader必须和VueLoaderPlugin()一起使用
+      test: /\.vue$/,
+      loader: 'vue-loader'
+    },
+    {
+      test: /\.css$/,
+      use: [
+        // 类似vue-style-loader和style-loader，区别在于会生成单独的css文件，文件配置参考plugin配置
+        MiniCssExtractPlugin.loader,
+        'css-loader',
+        // 已配置 autoprefixer 自动添加-webkit -ms 等前缀兼容浏览器（浏览器列表设置.browserslistrc）
+        // 配置文件 postcss.config.js
+        'postcss-loader'
+      ]
+    },
+    {
+      test: /\.scss$/,
+      use: [
+        MiniCssExtractPlugin.loader,
+        'css-loader',
+        'postcss-loader',
+        'sass-loader'
+      ]
+    },
+    {
+      test: /\.js$/,
+      // 支持ES6或更新的JS语法，配置文件.babelrc
+      loader: 'babel-loader',
+      exclude: /node_modules/,
+      loader: 'eslint-loader',
+      options: {
+        fix: devMode ? false : true
+      }
+    },
+    {
+      test: /\.(png|jpg|gif)$/,
+      loader: 'url-loader',
+      options: {
+        // 在dist目录中创建assets目录存放所有图片
+        outputPath: './images',
+        // 浏览器访问地址，如 http://localhost.com/assets/
+        publicPath: '/images/',
+        // limit 16Kb 会用base64图片减少http请求数量，所以要求UI设计师提供的多彩icon大小要小于16Kb
+        // 雪碧图只有在icon量巨大的项目使用，单彩icon用fontcustom方案
+        limit: '16384',
+        name: devMode ? '[name].[ext]?[hash:8]' : '[hash].[ext]'
+      }
+    },
+    {
+      test: /\.(ttf|woff|woff2|eot|svg)$/,
+      loader: 'file-loader',
+      options: {
+        outputPath: './fonts',
+        publicPath: '/fonts/',
+        name: devMode ? '[name].[ext]?[hash:8]' : '[hash].[ext]'
+      }
+    }
     ]
   },
   plugins: [
     new VueLoaderPlugin(),
     // 创建css独立文件
     new MiniCssExtractPlugin({
-      filename: devMode ? '[name].css?[hash:8]' : '[hash].css',
+      filename: devMode ? '[name].css?[hash:8]' : '[hash].css'
     }),
     // npm run dev/build时删除dist目录，保证没有残留文件
     new CleanWebpackPlugin(['dist']),

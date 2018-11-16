@@ -1,15 +1,9 @@
 import Vue from 'vue'
 import App from './App.vue'
-
 import Vuex from 'vuex'
-Vue.use(Vuex)
-
 // 引入./i18n/index.js
 import i18n from './i18n'
-
 import VueCookie from 'vue-cookie'
-Vue.use(VueCookie)
-
 import './assets/fonts/icons.css'
 // 按需引入也需要iview.css，按需引入需要配置.babelrc
 import 'iview/dist/styles/iview.css'
@@ -21,6 +15,9 @@ import {
   Select,
   Option
 } from 'iview'
+
+Vue.use(Vuex)
+Vue.use(VueCookie)
 // 全局注册组件，必须在根Vue实例 (通过 new Vue) 创建之前发生引入。
 Vue.component('i-button', Button)
 Vue.component('i-row', Row)
@@ -35,11 +32,11 @@ const store = new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   // 数据存储，不能直接用store.state修改内容，需要通过mutations修改
   state: {
-    describe: 'message.sison_describe',
+    describe: 'message.sison_describe'
   },
   // 修改state的唯一的入口
   mutations: {
-    setDescribe(state, desc) {
+    setDescribe (state, desc) {
       state.describe = desc
     }
   },
@@ -51,7 +48,7 @@ const store = new Vuex.Store({
   }
 })
 
-new Vue({
+let vm = new Vue({
   el: '#app',
   template: '<App/>',
   components: {
@@ -61,3 +58,4 @@ new Vue({
   store,
   i18n
 })
+Vue.use(vm)

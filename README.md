@@ -1,3 +1,5 @@
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
 # iXiaer
 夏尔猫舍App（Vuejs + Webpack + iView）
 > * 查看效果：https://kimseongrim.github.io
