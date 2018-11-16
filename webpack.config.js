@@ -59,12 +59,13 @@ module.exports = {
         test: /\.(png|jpg|gif)$/,
         loader: "url-loader",
         options: {
-          // 在dist目录中创建images目录存放所有图片
+          // 在dist目录中创建assets目录存放所有图片
           outputPath: './images',
-          // 浏览器访问地址，如 http://localhost.com/images/
+          // 浏览器访问地址，如 http://localhost.com/assets/
           publicPath: '/images/',
-          //文件大小大于limit 8Kb，url-loader会调用file-loader进行处理
-          limit: '8192',
+          // limit 16Kb 会用base64图片减少http请求数量，所以要求UI设计师提供的多彩icon大小要小于16Kb
+          // 雪碧图只有在icon量巨大的项目使用，单彩icon用fontcustom方案
+          limit: '16384',
           name: devMode ? '[name].[ext]?[hash:8]' : '[hash].[ext]'
         }
       },
@@ -73,7 +74,7 @@ module.exports = {
         loader: 'file-loader',
         options: {
           outputPath: './fonts',
-          publicPath: '/fonts/', // 不写publicPath也能正常找到fonts目录
+          publicPath: '/fonts/',
           name: devMode ? '[name].[ext]?[hash:8]' : '[hash].[ext]'
         }
       },

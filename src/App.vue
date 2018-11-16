@@ -5,7 +5,7 @@
       <div class="app-box-front">
         <i class="i-add"></i>
         <div id="test">
-          <img src="./assets/images/google-logo.png">
+          <img src="./assets/color-icons/icon-cloud-with-rain.png">
         </div>
         <section>
           <div>1</div>
