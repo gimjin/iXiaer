@@ -5,17 +5,23 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const WebpackShellPlugin = require('webpack-shell-plugin')
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 
+// 判断开发模式或生产模式
 const devMode = process.env.NODE_ENV !== 'production'
 
 module.exports = {
-  entry: ['babel-polyfill', './src/main.js'], // 项目的入口文件，webpack会从main.js开始，把所有依赖的js都加载打包
+  // 项目的入口文件，webpack会从main.js开始，把所有依赖的js都加载打包
+  entry: ['babel-polyfill', './src/main.js'],
   output: {
-    path: path.resolve(__dirname, './dist'), // 项目的打包文件路径
-    publicPath: '/', // 通过devServer访问路径上的虚拟目录
-    filename: devMode ? '[name].js?[hash:8]' : '[hash].js',// 打包后的文件名
+    // 项目的打包文件路径
+    path: path.resolve(__dirname, './dist'),
+    // 通过devServer访问路径上的虚拟目录
+    publicPath: '/',
+    // 打包后的文件名
+    filename: devMode ? '[name].js?[hash:8]' : '[hash].js',
   },
   module: {
     rules: [{
@@ -26,8 +32,11 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
+          // 类似vue-style-loader和style-loader，区别在于会生成单独的css文件，文件配置参考plugin配置
           MiniCssExtractPlugin.loader,
           'css-loader',
+          // 已配置 autoprefixer 自动添加-webkit -ms 等前缀兼容浏览器（浏览器列表设置.browserslistrc）
+          // 配置文件 postcss.config.js
           'postcss-loader'
         ],
       },
@@ -42,6 +51,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
+        // 支持ES6或更新的JS语法，配置文件.babelrc
         loader: 'babel-loader',
         exclude: /node_modules/
       },
@@ -49,9 +59,12 @@ module.exports = {
         test: /\.(png|jpg|gif)$/,
         loader: "url-loader",
         options: {
+          // 在dist目录中创建images目录存放所有图片
           outputPath: './images',
-          publicPath: '/images/', // 如果有CDN可以修改此路径
-          limit: '8192', //文件大小大于limit 8Kb，url-loader会调用file-loader进行处理
+          // 浏览器访问地址，如 http://localhost.com/images/
+          publicPath: '/images/',
+          //文件大小大于limit 8Kb，url-loader会调用file-loader进行处理
+          limit: '8192',
           name: devMode ? '[name].[ext]?[hash:8]' : '[hash].[ext]'
         }
       },
@@ -68,13 +81,18 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
+    // 创建css独立文件
     new MiniCssExtractPlugin({
       filename: devMode ? '[name].css?[hash:8]' : '[hash].css',
     }),
+    // npm run dev/build时删除dist目录，保证没有残留文件
     new CleanWebpackPlugin(['dist']),
+    // 生成的js和css文件时自动加入并生成index.html文件
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'index.html',
+      // .hbs是handlebars.js模版名称
+      template: 'index.hbs',
+      title: 'iXiaer.com',
       meta: {
         'charset': 'UTF-8',
         'viewport': 'width=device-width, initial-scale=1.0',
@@ -83,19 +101,27 @@ module.exports = {
           'content': 'ie=edge'
         },
         'favicon': '/static/favicon.ico'
-      },
-      title: 'iXiaer.com'
+      }
     }),
     new CopyWebpackPlugin([{
+      // static/ 目录复制到 dist/static
       from: 'static/',
       to: 'static/'
-    }], {})
+    }], {}),
+    new WebpackShellPlugin({
+      // svg转换成font，配置文件fontcustom.yml
+      onBuildStart: ['fontcustom compile'],
+      onBuildEnd: ['echo "Webpack build end."']
+    })
   ],
   optimization: {
     minimizer: [
+      // JS压缩，其实不写Webpack 4.x会在生产模式中自动执行
       new UglifyJsPlugin({}),
+      // CSS压缩
       new OptimizeCSSAssetsPlugin({})
     ],
+    // 根据Chuncks拆分文件，解决入口文件太大的问题
     splitChunks: {
       chunks: 'all',
       minSize: 30000,
@@ -117,18 +143,23 @@ module.exports = {
         }
       }
     },
+    // runtime用到的js文件单独剥离出来，解决入口文件太大的问题
     runtimeChunk: {
       name: entrypoint => `runtime~${entrypoint.name}`
     }
   },
   resolve: {
     alias: {
+      // Vuejs 区分 Full 与 Runtime-only 版本，加入下面语句选择 Full版本编译
       'vue$': 'vue/dist/vue.esm.js'
     }
   },
   devServer: {
+    // 如果为 true ，页面出错不会弹出 404 页面
     historyApiFallback: true,
+    // 如果为 true ，在浏览器上全屏显示编译的errors或warnings
     overlay: true
   },
+  // 生产模式时关闭source-map
   devtool: devMode ? 'source-map' : ''
 }
