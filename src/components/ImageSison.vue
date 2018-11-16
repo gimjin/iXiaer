@@ -12,7 +12,7 @@ export default {
   data() {
     return {
       // require()访问时会经过url-loader, 会对文件及路径做处理
-      url: require('../assets/sison.jpg')
+      url: require('../assets/images/sison.jpg')
     }
   },
   computed: {

@@ -3,8 +3,9 @@
   <v-touch v-on:swipeleft="swipeChangeRouter" v-on:swiperight="swipeChangeRouter" v-bind:swipe-options="{ direction:'horizontal' }">
     <div class="app-box">
       <div class="app-box-front">
+        <i class="i-add"></i>
         <div id="test">
-          <img src="./assets/google-logo.png">
+          <img src="./assets/images/google-logo.png">
         </div>
         <section>
           <div>1</div>
@@ -162,7 +163,7 @@ export default {
 @import '~retinajs/dist/_retina.scss';
 
 #test {
-    @include retina('./assets/google-logo.png', 3, cover, center center no-repeat);
+    @include retina('./assets/images/google-logo.png', 3, cover, center center no-repeat);
     transform: scale(0.5);
     display: flex;
 }

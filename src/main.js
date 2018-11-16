@@ -10,6 +10,7 @@ import i18n from './i18n'
 import VueCookie from 'vue-cookie'
 Vue.use(VueCookie)
 
+import './assets/fonts/icons.css'
 // 按需引入也需要iview.css，按需引入需要配置.babelrc
 import 'iview/dist/styles/iview.css'
 import {

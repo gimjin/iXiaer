@@ -11,7 +11,7 @@ export default {
   name: 'ImageLarva',
   data() {
     return {
-      url: require('../assets/larva.jpg')
+      url: require('../assets/images/larva.jpg')
     }
   },
   computed: {

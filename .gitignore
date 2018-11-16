@@ -1,10 +1,11 @@
 # Folders
-node_modules/
-dist/
+node_modules
+dist
 .DS_Store
+src/assets/fonts
 
-# Log files
+# files
 *.log
-
-# Other files
 *.icloud
+.fontcustom-manifest.json
+src/assets/icons.css
