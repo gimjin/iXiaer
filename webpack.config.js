@@ -15,7 +15,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'), // 项目的打包文件路径
     publicPath: '/', // 通过devServer访问路径上的虚拟目录
-    filename: devMode ? '[name].js?[hash:6]' : '[hash].js',// 打包后的文件名
+    filename: devMode ? '[name].js?[hash:8]' : '[hash].js',// 打包后的文件名
   },
   module: {
     rules: [{
