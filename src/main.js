@@ -4,9 +4,9 @@ import Vuex from 'vuex'
 // 引入./i18n/index.js
 import i18n from './i18n'
 import VueCookie from 'vue-cookie'
-import './assets/fonts/icons.css'
 import iView from 'iView'
 import 'iview/dist/styles/iview.css'
+import './assets/fonts/icons.css'
 
 Vue.use(Vuex)
 Vue.use(VueCookie)
