@@ -1,3 +1,11 @@
 module.exports = {
-  "extends": ["plugin:prettier/recommended"]
+  'extends': [
+    'plugin:vue/recommended',
+    'standard',
+  ],
+  'env': {
+    'es6': true,
+    'browser': true,
+    'node': true
+  }
 }

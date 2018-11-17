@@ -34,13 +34,13 @@
   color: white;
 }
 
-/* 响应式调整 Hi I am Sison的位置 */
-/* 手机查看激活6em */
+/* 响应式调整 Hi I am Sison的位置;手机查看激活6em */
 @media (max-width: 767px) {
   .gap {
     height: 6em;
   }
 }
+
 @media (min-width: 768px) {
   .gap {
     height: 16em;

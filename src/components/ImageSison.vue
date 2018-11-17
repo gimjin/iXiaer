@@ -1,7 +1,12 @@
 <template>
-<div id="image-sison" :style="urlStyle">
-  <img :src="url" @load="loaded" width="0" height="0" />
-</div>
+  <div id="image-sison" :style="urlStyle">
+    <img
+      :src="url"
+      height="0"
+      width="0"
+      @load="loaded"
+    >
+  </div>
 </template>
 
 <script>
@@ -20,15 +25,15 @@ export default {
       return 'background:url(' + this.url + ') center'
     },
   },
+  mounted: function() {
+    // 启动进度条
+    LoadingBar.start()
+  },
   methods: {
     loaded: function() {
       // 结束进度条
       LoadingBar.finish()
     },
-  },
-  mounted: function() {
-    // 启动进度条
-    LoadingBar.start()
   },
 }
 </script>
