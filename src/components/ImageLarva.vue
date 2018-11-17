@@ -1,7 +1,15 @@
 <template>
-<div id="image-larva" :style="urlStyle">
-  <img :src="url" @load="loaded" width="0" height="0" />
-</div>
+  <div
+    id="image-larva"
+    :style="urlStyle"
+  >
+    <img
+      :src="url"
+      width="0"
+      height="0"
+      @load="loaded"
+    >
+  </div>
 </template>
 
 <script>
@@ -9,26 +17,26 @@ import { LoadingBar } from 'iView'
 
 export default {
   name: 'ImageLarva',
-  data() {
+  data () {
     return {
-      url: require('../assets/images/larva.jpg'),
+      url: require('../assets/images/larva.jpg')
     }
   },
   computed: {
-    urlStyle: function() {
+    urlStyle: function () {
       return 'background:url(' + this.url + ') center'
-    },
+    }
   },
-  methods: {
-    loaded: function() {
-      // 结束进度条
-      LoadingBar.finish()
-    },
-  },
-  mounted: function() {
+  mounted: function () {
     // 启动进度条
     LoadingBar.start()
   },
+  methods: {
+    loaded: function () {
+      // 结束进度条
+      LoadingBar.finish()
+    }
+  }
 }
 </script>
 

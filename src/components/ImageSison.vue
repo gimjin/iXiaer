@@ -1,5 +1,8 @@
 <template>
-  <div id="image-sison" :style="urlStyle">
+  <div
+    id="image-sison"
+    :style="urlStyle"
+  >
     <img
       :src="url"
       height="0"
@@ -14,27 +17,27 @@ import { LoadingBar } from 'iView'
 
 export default {
   name: 'ImageSison',
-  data() {
+  data () {
     return {
       // require()访问时会经过url-loader, 会对文件及路径做处理
-      url: require('../assets/images/sison.jpg'),
+      url: require('../assets/images/sison.jpg')
     }
   },
   computed: {
-    urlStyle: function() {
+    urlStyle: function () {
       return 'background:url(' + this.url + ') center'
-    },
+    }
   },
-  mounted: function() {
+  mounted: function () {
     // 启动进度条
     LoadingBar.start()
   },
   methods: {
-    loaded: function() {
+    loaded: function () {
       // 结束进度条
       LoadingBar.finish()
-    },
-  },
+    }
+  }
 }
 </script>
 

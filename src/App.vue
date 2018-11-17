@@ -11,12 +11,6 @@
           <div id="test">
             <img src="./assets/color-icons/icon-cloud-with-rain.png">
           </div>
-          <section>
-            <div>1</div>
-            <div>2</div>
-            <div>3</div>
-            <div>4</div>
-          </section>
           <Row type="flex">
             <!-- https://www.iviewui.com/components/grid 响应式页面配置方法 -->
             <!-- Safari：开发 > 进入响应式设计模式，看手机上效果时天气预报信息会消失 -->
@@ -208,13 +202,5 @@ export default {
 
   transform: scale(0.5);
   display: flex;
-}
-
-section {
-  lost-utility: clearfix;
-}
-
-section > div {
-  lost-column: 1/2;
 }
 </style>
