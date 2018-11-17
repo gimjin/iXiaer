@@ -3,7 +3,7 @@
   <v-touch v-on:swipeleft="swipeChangeRouter" v-on:swiperight="swipeChangeRouter" v-bind:swipe-options="{ direction:'horizontal' }">
     <div class="app-box">
       <div class="app-box-front">
-        <i class="i-add"></i>
+        <i class="icon-add"></i>
         <div id="test">
           <img src="./assets/color-icons/icon-cloud-with-rain.png">
         </div>
@@ -13,21 +13,21 @@
           <div>3</div>
           <div>4</div>
         </section>
-        <i-row type="flex">
+        <Row type="flex">
           <!-- https://www.iviewui.com/components/grid 响应式页面配置方法-->
           <!-- Safari：开发 > 进入响应式设计模式，看手机上效果时天气预报信息会消失  -->
-          <i-col :xs="{span: 24}" :sm="{span: 12}" class-name="gap">
+          <Col :xs="{span: 24}" :sm="{span: 12}" class-name="gap">
             <!-- https://cn.vuejs.org/v2/api/#v-on @on-change等同于v-on:change是一种语法糖 -->
-            <i-select v-model="lang" @on-change="translate(lang)" style="width:150px">
-              <i-option v-for="item in langList" :value="item.value" :key="item.value">{{item.label}}</i-option>
-            </i-select>
-          </i-col>
-          <i-col :xs="0" :sm="12">
+            <Select v-model="lang" @on-change="translate(lang)" style="width:150px">
+              <Option v-for="item in langList" :value="item.value" :key="item.value">{{item.label}}</Option>
+            </Select>
+          </Col>
+          <Col :xs="0" :sm="12">
             <display-weather></display-weather>
-          </i-col>
-        </i-row>
-        <i-row>
-          <i-col span="24">
+          </Col>
+        </Row>
+        <Row>
+          <Col span="24">
             <transition name="fade" mode="out-in">
               <!-- 通过.sync修饰符子组件可更新父组件的data值，下面是更新了name -->
               <content-detail :nowCat.sync="name" @changeCat='changeRouter'>
@@ -39,8 +39,8 @@
                 </div>
               </content-detail>
             </transition>
-          </i-col>
-        </i-row>
+          </Col>
+        </Row>
       </div>
       <div class="app-box-back">
         <!-- More https://cn.vuejs.org/v2/guide/transitions.html#过渡模式 -->
@@ -59,57 +59,58 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import router from './router' // 指向目录默认读取index.js
+import Vue from 'vue'
+// 指向目录默认读取index.js
+import router from './router'
 // 同步导入组件
 import DisplayWeather from './components/DisplayWeather.vue'
 
 import VueTouch from 'vue-touch'
 Vue.use(VueTouch, {
-  name: 'v-touch'
+  name: 'v-touch',
 })
 
 // 异步导入组件
 // https://stackoverflow.com/questions/46602935/vue-async-components-are-loading-without-delay-regardless-of-the-the-delay-par
 const ContentDetail = () => ({
-  component: new Promise((resolve) => {
+  component: new Promise(resolve => {
     setTimeout(() => {
-      resolve(
-        import('./components/ContentDetail.vue'))
+      resolve(require('./components/ContentDetail.vue'))
     }, 1500)
   }),
   // {}快速注册组件
   loading: Vue.component('loading-component', {
-    template: '<div class="welcom">{{ $t("message.welcom") }}</div>'
+    template: '<div class="welcom">{{ $t("message.welcom") }}</div>',
   }),
   error: Vue.component('error-component', {
-    template: '<span>Error</span>'
+    template: '<span>Error</span>',
   }),
-  delay: 200
+  delay: 200,
 })
 
 export default {
   name: 'App',
   data() {
     return {
-      langList: [{
+      langList: [
+        {
           value: 'en_US',
-          label: 'English'
+          label: 'English',
         },
         {
           value: 'zh_CN',
-          label: '中文'
+          label: '中文',
         },
       ],
       lang: '',
-      name: 'Sison'
+      name: 'Sison',
     }
   },
   // 局部注册组件
   components: {
     // html中可以直接编写<content-detail></content-detail>
     ContentDetail,
-    DisplayWeather
+    DisplayWeather,
   },
   methods: {
     // 切换语言
@@ -126,7 +127,7 @@ export default {
     changeRouter: function() {
       // 切换Router
       router.push({
-        path: this.name
+        path: this.name === 'Sison' ? '/' : this.name,
       })
     },
     swipeChangeRouter: function() {
@@ -138,7 +139,7 @@ export default {
         this.$store.commit('setDescribe', 'message.sison_describe')
       }
       this.changeRouter()
-    }
+    },
   },
   // 组件创建时钩子函数/回调函数
   mounted: function() {
@@ -151,21 +152,26 @@ export default {
     this.$i18n.locale = this.$cookie.get('lang')
   },
   // 绑定router，在所有子组件中可以使用this.$router访问
-  router
+  router,
 }
 </script>
 
 <!-- scoped 为组件样式设置作用域 https://cn.vuejs.org/v2/style-guide/ -->
 <style lang="scss" scoped>
-@import "./assets/main.scss";
+@import './assets/main.scss';
 
 // 引入node_modules时需要用到 ～ 符号
 @import '~retinajs/dist/_retina.scss';
 
 #test {
-    @include retina('./assets/images/google-logo.png', 3, cover, center center no-repeat);
-    transform: scale(0.5);
-    display: flex;
+  @include retina(
+    './assets/images/google-logo.png',
+    3,
+    cover,
+    center center no-repeat
+  );
+  transform: scale(0.5);
+  display: flex;
 }
 
 section {

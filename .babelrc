@@ -1,16 +1,11 @@
-// import 按需引入iView
-// presets 把ES6转码成ES5语法
 {
-  "plugins": [
-    ["import", {
-      "libraryName": "iview",
-      "libraryDirectory": "src/components"
-    }]
+  presets: [
+    [
+      'env',
+      {
+        modules: false,
+      },
+    ],
+    'stage-0',
   ],
-  "presets": [
-    ["env", {
-      "modules": false
-    }],
-    "stage-0"
-  ]
 }

@@ -12,24 +12,25 @@
 
 <script>
 // 简单组件无需创建.vue文件，直接定义后在components中声明
-const SaySison = (
-  'say-sison', {
-    template: '<div class="hi">{{ $t("message.hi") }} {{ $t("message.sison") }}</div>',
-    // props: [],
-    // methods: {
-    //   myMethods: function(args) {
-    //     console.log(args);
-    //   }
-    // },
-    // data() {
-    //   return {
-    //     msg: 'Hi'
-    //   }
-    // }
-  }
-)
+const SaySison = ('say-sison',
+{
+  template:
+    '<div class="hi">{{ $t("message.hi") }} {{ $t("message.sison") }}</div>',
+  // props: [],
+  // methods: {
+  //   myMethods: function(args) {
+  //     console.log(args);
+  //   }
+  // },
+  // data() {
+  //   return {
+  //     msg: 'Hi'
+  //   }
+  // }
+})
 const SayLarva = {
-  template: '<div class="hi">{{ $t("message.hi") }} {{ $t("message.larva") }}</div>',
+  template:
+    '<div class="hi">{{ $t("message.hi") }} {{ $t("message.larva") }}</div>',
 }
 
 export default {
@@ -38,13 +39,13 @@ export default {
   props: ['nowCat'],
   // 只要data或者prop更新自动重新计算
   computed: {
-    say: function(){
+    say: function() {
       return 'Say' + this.nowCat
-    }
+    },
   },
   components: {
     SaySison,
-    SayLarva
+    SayLarva,
   },
   methods: {
     nextCat: function() {
@@ -57,8 +58,8 @@ export default {
         this.$emit('changeCat')
         this.$store.commit('setDescribe', 'message.sison_describe')
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

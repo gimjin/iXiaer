@@ -11,19 +11,19 @@ export default {
   name: 'ImageLarva',
   data() {
     return {
-      url: require('../assets/images/larva.jpg')
+      url: require('../assets/images/larva.jpg'),
     }
   },
   computed: {
     urlStyle: function() {
       return 'background:url(' + this.url + ') center'
-    }
+    },
   },
   methods: {
     loaded: function() {
       // 结束进度条
       LoadingBar.finish()
-    }
+    },
   },
   mounted: function() {
     // 启动进度条

@@ -1,6 +1,3 @@
 module.exports = {
-  plugins: [
-    require('autoprefixer'),
-    require('lost')
-  ]
+  plugins: [require('autoprefixer'), require('lost')],
 }

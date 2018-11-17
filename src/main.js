@@ -5,26 +5,12 @@ import Vuex from 'vuex'
 import i18n from './i18n'
 import VueCookie from 'vue-cookie'
 import './assets/fonts/icons.css'
-// 按需引入也需要iview.css，按需引入需要配置.babelrc
+import iView from 'iView'
 import 'iview/dist/styles/iview.css'
-import {
-  Button,
-  Row,
-  Col,
-  Icon,
-  Select,
-  Option
-} from 'iview'
 
 Vue.use(Vuex)
 Vue.use(VueCookie)
-// 全局注册组件，必须在根Vue实例 (通过 new Vue) 创建之前发生引入。
-Vue.component('i-button', Button)
-Vue.component('i-row', Row)
-Vue.component('i-col', Col)
-Vue.component('i-icon', Icon)
-Vue.component('i-select', Select)
-Vue.component('i-option', Option)
+Vue.use(iView)
 
 // 全局数据集，可响应式修改界面已绑定数据
 const store = new Vuex.Store({
@@ -32,30 +18,29 @@ const store = new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   // 数据存储，不能直接用store.state修改内容，需要通过mutations修改
   state: {
-    describe: 'message.sison_describe'
+    describe: 'message.sison_describe',
   },
   // 修改state的唯一的入口
   mutations: {
-    setDescribe (state, desc) {
+    setDescribe(state, desc) {
       state.describe = desc
-    }
+    },
   },
   // getters可以返回用state加工后的值，用箭头函数写法更简洁一些function(state) {
   getters: {
     getDescribe: state => {
       return state.describe
-    }
-  }
+    },
+  },
 })
 
-let vm = new Vue({
+new Vue({
   el: '#app',
   template: '<App/>',
   components: {
-    App
+    App,
   },
   // 类似store绑定，可以在所有子组件export default{}内部用 this.$store.调用，外部无法访问返回Undefined
   store,
-  i18n
+  i18n,
 })
-Vue.use(vm)

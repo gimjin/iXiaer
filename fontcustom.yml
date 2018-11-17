@@ -13,7 +13,7 @@
 font_name: icons
 
 # Format of CSS selectors. {{glyph}} is substituted for the glyph name.
-css_selector: .i-{{glyph}}
+css_selector: .icon-{{glyph}}
 
 # Generate fonts without asset-busting hashes.
 no_hash: true

@@ -12,26 +12,25 @@ export default {
   data() {
     return {
       // require()访问时会经过url-loader, 会对文件及路径做处理
-      url: require('../assets/images/sison.jpg')
+      url: require('../assets/images/sison.jpg'),
     }
   },
   computed: {
-    urlStyle: function(){
-      return 'background:url('  + this.url +  ') center'
-    }
+    urlStyle: function() {
+      return 'background:url(' + this.url + ') center'
+    },
   },
   methods: {
     loaded: function() {
       // 结束进度条
       LoadingBar.finish()
-    }
+    },
   },
   mounted: function() {
     // 启动进度条
     LoadingBar.start()
   },
 }
-
 </script>
 
 <!-- scoped是作用域标签，里面所有的声明只在此组件生效 -->

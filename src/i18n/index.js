@@ -15,8 +15,8 @@ export default new VueI18n({
         sison_describe: 'Swipe left or right, I will become Larva.',
         larva_describe: 'Click button, change back to Sisson.',
         next: 'Next Cat',
-        weather: 'Weather'
-      }
+        weather: 'Weather',
+      },
     },
     zh_CN: {
       message: {
@@ -28,8 +28,8 @@ export default new VueI18n({
         sison_describe: '往左或右滑动，我将会变成拉哇。',
         larva_describe: '点击下一只猫按钮，变回西森。',
         next: '下一只猫',
-        weather: '天气'
-      }
-    }
-  }
+        weather: '天气',
+      },
+    },
+  },
 })

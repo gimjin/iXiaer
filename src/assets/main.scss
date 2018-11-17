@@ -29,7 +29,7 @@
 }
 
 .welcom {
-  margin-left: .5em;
+  margin-left: 0.5em;
   font-size: 4em;
   color: white;
 }
@@ -38,11 +38,11 @@
 /* 手机查看激活6em */
 @media (max-width: 767px) {
   .gap {
-    height: 6em
+    height: 6em;
   }
 }
 @media (min-width: 768px) {
   .gap {
-    height: 16em
+    height: 16em;
   }
 }

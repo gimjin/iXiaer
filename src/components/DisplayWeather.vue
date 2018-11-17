@@ -5,26 +5,26 @@
 </template>
 
 <script>
-import Vue from 'vue';
+import Vue from 'vue'
 import axios from 'axios'
 
 export default {
   name: 'DisplayWeather',
   data() {
     return {
-      tmp_max: 'n/a'
+      tmp_max: 'n/a',
     }
   },
   methods: {
     setTemp: function(tmp) {
       this.tmp_max = tmp
-    }
+    },
   },
   // 调用{{showTemp}}读取数据和data数据改变时执行
   computed: {
     showTemp: function() {
       return this.$t('message.weather') + ': ' + this.tmp_max + ' ℃'
-    }
+    },
   },
   // https://cn.vuejs.org/v2/api/#mounted
   // https://cn.vuejs.org/v2/guide/instance.html#生命周期图示
@@ -45,7 +45,7 @@ export default {
           this.errored = true
         })
     })
-  }
+  },
 }
 </script>
 

@@ -14,11 +14,6 @@ export default new VueRouter({
       component: ImageSison
     },
     {
-      path: '/Sison',
-      name: 'ImageSison',
-      component: ImageSison
-    },
-    {
       path: '/Larva',
       name: 'ImageLarva',
       component: ImageLarva
